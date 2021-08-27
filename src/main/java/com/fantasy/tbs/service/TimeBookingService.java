@@ -53,4 +53,13 @@ public interface TimeBookingService {
      * @param timeBookDTO
      */
     void bookTime(TimeBookDTO timeBookDTO);
+
+    /**
+     * @description:  Get TimeBooking list by personalNumber
+     * @param: [personalNumber]
+     * @return: java.util.List<com.fantasy.tbs.domain.TimeBooking>
+     * @author: Tao Summer
+     * @date: 2021/8/27 1:30
+     */
+    List<TimeBooking> findEmployeeWorkingTimeByPersonalNum(String personalNumber);
 }
