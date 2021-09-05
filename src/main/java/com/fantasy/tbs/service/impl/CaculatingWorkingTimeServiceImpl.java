@@ -34,6 +34,7 @@ public class CaculatingWorkingTimeServiceImpl implements CaculatingWorkingTimeSe
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<EmployeeWorkingTime> findEmployeeWorkingTimeByPersonalNum(String personalNumber) {
         log.debug("Request to get EmployeeWorkingTime");
         List<TimeBooking> timeBookingList = timeBookingService.findEmployeeWorkingTimeByPersonalNum(personalNumber);
