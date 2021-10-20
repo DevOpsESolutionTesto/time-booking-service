@@ -379,4 +379,58 @@ class TimeBookingResourceIT {
         List<TimeBooking> timeBookingList = timeBookingRepository.findAll();
         assertThat(timeBookingList).hasSize(databaseSizeBeforeDelete - 1);
     }
+
+
+    @Test
+    @Transactional
+    void given_entrance_and_exit_time_When_calculating_WH_Then_response_should_contain_expected_duration() throws Exception {
+        // given entrance time
+        ZonedDateTime zonedDateTime = ZonedDateTime.now();
+        TimeBooking givenEntranceTime = new TimeBooking();
+        givenEntranceTime.setBooking(zonedDateTime.minusMinutes(80)); //expected working time duration
+        givenEntranceTime.setPersonalNumber("test");
+
+        restTimeBookingMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(givenEntranceTime)))
+            .andExpect(status().isCreated());
+
+        // given exit time
+        TimeBooking givenExitTime = new TimeBooking();
+        givenExitTime.setBooking(zonedDateTime);
+        givenExitTime.setPersonalNumber("test");
+
+        restTimeBookingMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(givenExitTime)))
+            .andExpect(status().isCreated());
+
+        // calculating working time
+        restTimeBookingMockMvc
+            .perform(get("/api/book/{personalNumber}/workingTime", givenEntranceTime.getPersonalNumber()))
+            .andExpect(status().isOk())
+            //expected working time duration in response
+            .andExpect(content().string("01:20"));
+
+    }
+
+
+    @Test
+    @Transactional
+    void given_booking_without_exit_booking_When_check_it_out_Then_response_should_contain_booking_id() throws Exception {
+        // given entrance time
+        TimeBooking givenEntranceTime = new TimeBooking();
+        givenEntranceTime.setBooking( ZonedDateTime.now());
+        givenEntranceTime.setPersonalNumber("test");
+
+        restTimeBookingMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(givenEntranceTime)))
+            .andExpect(status().isCreated());
+
+        restTimeBookingMockMvc
+            .perform(get("/api/book/{personalNumber}/missingBookings", givenEntranceTime.getPersonalNumber()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.length()").value(1));
+
+    }
+
 }

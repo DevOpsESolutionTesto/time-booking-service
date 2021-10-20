@@ -53,4 +53,16 @@ public interface TimeBookingService {
      * @param timeBookDTO
      */
     void bookTime(TimeBookDTO timeBookDTO);
+
+    /**
+     * calculation of working hours for a specific personal number
+     * @return working time duration in minutes
+     */
+    int getTotalWorkingHoursForPersonalNumber(String personalNumber);
+
+    /**
+     * find all potentially missing booking IDs, all those bookings have zero working hours.
+     * @return list of BookingTimes those have zero duration.
+     */
+    List<Long> findPotentialMissingBookingIds(String personalNumber);
 }

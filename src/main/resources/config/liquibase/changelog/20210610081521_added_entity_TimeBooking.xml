@@ -20,6 +20,12 @@
             <column name="personal_number" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="duration" type="int">
+                <constraints nullable="true" />
+            </column>
+            <column name="type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="time_booking" columnName="booking" columnDataType="${datetimeType}"/>

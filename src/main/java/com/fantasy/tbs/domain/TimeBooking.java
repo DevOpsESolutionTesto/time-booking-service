@@ -26,6 +26,13 @@ public class TimeBooking implements Serializable {
     @Column(name = "personal_number")
     private String personalNumber;
 
+    @Column(name = "duration")
+    private int duration;
+
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
+    private Type type;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
@@ -66,7 +73,23 @@ public class TimeBooking implements Serializable {
         this.personalNumber = personalNumber;
     }
 
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+// jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {
@@ -92,6 +115,7 @@ public class TimeBooking implements Serializable {
             "id=" + getId() +
             ", booking='" + getBooking() + "'" +
             ", personalNumber='" + getPersonalNumber() + "'" +
+            ", duration='" + getDuration() + "'" +
             "}";
     }
 }
