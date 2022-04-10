@@ -53,4 +53,11 @@ public interface TimeBookingService {
      * @param timeBookDTO
      */
     void bookTime(TimeBookDTO timeBookDTO);
+
+    /**
+     *
+     * @param personalId
+     * @return
+     */
+    long hoursWorkedByEmployee(String personalId);
 }
