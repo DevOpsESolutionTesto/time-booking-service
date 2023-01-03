@@ -1,7 +1,7 @@
 package com.fantasy.tbs.service;
 
-import com.fantasy.tbs.domain.TimeBookDTO;
 import com.fantasy.tbs.domain.TimeBooking;
+import com.fantasy.tbs.domain.dto.TimeBookDTO;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,11 +55,8 @@ public interface TimeBookingService {
     void bookTime(TimeBookDTO timeBookDTO);
 
     /**
-     * @description:  Get TimeBooking list by personalNumber
-     * @param: [personalNumber]
-     * @return: java.util.List<com.fantasy.tbs.domain.TimeBooking>
-     * @author: Tao Summer
-     * @date: 2021/8/27 1:30
+     * Get TimeBooking list by personalNumber
+     * @param: personalNumber the personalNumber of the entity
      */
-    List<TimeBooking> findEmployeeWorkingTimeByPersonalNum(String personalNumber);
+    List<TimeBooking> getTimeBookingListByPersonalNumber(String personalNumber);
 }

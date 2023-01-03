@@ -1,17 +1,10 @@
 package com.fantasy.tbs.service;
 
-import com.fantasy.tbs.domain.EmployeeWorkingTime;
-
-import java.util.List;
+import com.fantasy.tbs.domain.dto.EmployeeWorkingTimeDTO;
 
 public interface CaculatingWorkingTimeService {
-
     /**
-     * @description: Get employee working time by personalNumber
-     * @param: [personalNumber] personal number
-     * @return: List<EmployeeWorkingTime></EmployeeWorkingTime>
-     * @author: Tao Summer
-     * @date: 2021/8/26 17:51
+     * Get employee working hours by personalNumber
      */
-    List<EmployeeWorkingTime> findEmployeeWorkingTimeByPersonalNum(String personalNumber);
+    EmployeeWorkingTimeDTO getWorkHoursByPersonalNumber(String personalNumber);
 }

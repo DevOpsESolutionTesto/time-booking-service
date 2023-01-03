@@ -379,4 +379,33 @@ class TimeBookingResourceIT {
         List<TimeBooking> timeBookingList = timeBookingRepository.findAll();
         assertThat(timeBookingList).hasSize(databaseSizeBeforeDelete - 1);
     }
+
+    @Test
+    @Transactional
+    void testGetWorkHoursByPersonalNumber() throws Exception {
+        ZonedDateTime zonedDateTime = ZonedDateTime.now();
+        // given begin time
+        TimeBooking beginTime = new TimeBooking();
+        beginTime.setBooking(zonedDateTime.minusMinutes(100));
+        beginTime.setPersonalNumber("test");
+
+        restTimeBookingMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(beginTime)))
+            .andExpect(status().isCreated());
+
+        // given end time
+        TimeBooking endTime = new TimeBooking();
+        endTime.setBooking(zonedDateTime);
+        endTime.setPersonalNumber("test");
+
+        restTimeBookingMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(endTime)))
+            .andExpect(status().isCreated());
+
+        restTimeBookingMockMvc
+            .perform(get("/api/timeWorking/book/{personalNumber}/getWorkHoursByPersonalNumber", beginTime.getPersonalNumber()))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.personalNumber").value("test"))
+            .andExpect(jsonPath("$.booking").value(1.67));
+    }
 }

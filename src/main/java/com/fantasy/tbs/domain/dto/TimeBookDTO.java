@@ -1,4 +1,4 @@
-package com.fantasy.tbs.domain;
+package com.fantasy.tbs.domain.dto;
 
 import java.time.ZonedDateTime;
 
