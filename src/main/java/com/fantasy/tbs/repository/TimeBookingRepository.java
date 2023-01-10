@@ -1,7 +1,9 @@
 package com.fantasy.tbs.repository;
 
 import com.fantasy.tbs.domain.TimeBooking;
+import java.util.List;
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -9,4 +11,7 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface TimeBookingRepository extends JpaRepository<TimeBooking, Long> {}
+public interface TimeBookingRepository extends JpaRepository<TimeBooking, Long> {
+    @Query(value = "SELECT t FROM TimeBooking  t WHERE t.personalNumber  = :personalNumber order by t.booking asc", nativeQuery = true)
+    List<TimeBooking> getTimeBookingListByPersonalNumber(@Param("personalNumber") String personalNumber);
+}

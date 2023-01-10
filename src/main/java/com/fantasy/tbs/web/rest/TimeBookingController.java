@@ -1,6 +1,6 @@
 package com.fantasy.tbs.web.rest;
 
-import com.fantasy.tbs.domain.TimeBookDTO;
+import com.fantasy.tbs.domain.dto.TimeBookDTO;
 import com.fantasy.tbs.service.impl.TimeBookingServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

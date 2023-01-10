@@ -1,7 +1,7 @@
 package com.fantasy.tbs.service.impl;
 
-import com.fantasy.tbs.domain.TimeBookDTO;
 import com.fantasy.tbs.domain.TimeBooking;
+import com.fantasy.tbs.domain.dto.TimeBookDTO;
 import com.fantasy.tbs.repository.TimeBookingRepository;
 import com.fantasy.tbs.service.TimeBookingService;
 import com.fantasy.tbs.service.mapper.TimeBookMapper;
@@ -79,5 +79,10 @@ public class TimeBookingServiceImpl implements TimeBookingService {
     @Override
     public void bookTime(TimeBookDTO timeBookDTO) {
         timeBookingRepository.save(timeBookMapper.toTimeBooking(timeBookDTO));
+    }
+
+    @Override
+    public List<TimeBooking> getTimeBookingListByPersonalNumber(String personalNumber) {
+        return timeBookingRepository.getTimeBookingListByPersonalNumber(personalNumber);
     }
 }
